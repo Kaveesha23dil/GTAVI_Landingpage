@@ -1,28 +1,18 @@
+import React, { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
 
-const FirstVideo = () => {
+const PostCard = () => {
   const videoRef = useRef(null);
 
   useGSAP(() => {
-    gsap.set(".first-vd-wrapper", { marginTop: "-150vh", opacity: 0 });
-
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: ".first-vd-wrapper",
-        start: "top top",
-        end: "+=200% top",
+        trigger: ".post-card",
+        start: "top center",
+        end: "bottom center",
         scrub: true,
-        pin: true,
       },
-    });
-
-    tl.to(".hero-section", { delay: 0.5, opacity: 0, ease: "power1.inOut" });
-    tl.to(".first-vd-wrapper", {
-      opacity: 1,
-      duration: 2,
-      ease: "power1.inOut",
     });
 
     videoRef.current.onloadedmetadata = () => {
@@ -36,22 +26,26 @@ const FirstVideo = () => {
         "<"
       );
     };
-  }, []);
-
+  });
   return (
-    <section className="first-vd-wrapper">
-      <div className="h-dvh">
+    <section className="post-card">
+      <div className="animated-gradient-bg" />
+      <div className="post-card-wrapper group hover:rotate-1 hover:-[1.02] transition duration-700">
+        <img src="/images/overlay.webp" />
         <video
           ref={videoRef}
           muted
           playsInline
+          autoPlay
           preload="auto"
-          src="/videos/output1.mp4"
-          className="first-vd"
+          src="/videos/postcard-vd.mp4"
         />
+        <button className="group-hover:bg-yellow transition duration-700">
+          Explore Leonida Keys
+        </button>
       </div>
     </section>
   );
 };
 
-export default FirstVideo;
+export default PostCard;
